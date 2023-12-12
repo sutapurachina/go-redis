@@ -38,6 +38,12 @@ func (r *RedisRepository) GetList(listName string) ([][]byte, error) {
 	return res, err
 }
 
+func (r *RedisRepository) GetListN(listName string, n int) ([][]byte, error) {
+	command := "LRANGE"
+	res, err := r.getByteSlices(command, listName, 0, n)
+	return res, err
+}
+
 func (r *RedisRepository) GetHashMapField(hashTableName string, fieldName interface{}) (string, error) {
 	command := "HGET"
 	res, err := r.getString(command, hashTableName, fieldName)
